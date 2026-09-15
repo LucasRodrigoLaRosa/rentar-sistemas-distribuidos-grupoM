@@ -24,7 +24,7 @@ public class Cliente {
     Se evalúan en memoria apenas llega el JSON al Controller.
     */
     @Id
-    @GenerateValue(startegy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCliente;
 
     @NotNull(message = "El documento es obligatorio")

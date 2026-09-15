@@ -13,12 +13,12 @@ import java.time.Duration;
 @Table(name = "reserva")
 public class Reserva {
     @Id
-    @GenerateValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAlquiler;
 
     @NotNull(message = "La fecha y hora de inicio es obligatoria")
     @Column(nullable = false)
-    private LocalDateTime fechaInicio 
+    private LocalDateTime fechaInicio; 
     
     @NotNull(message = "La fecha y hora de finalizacion es obligatoria")
     @Column(nullable = false)

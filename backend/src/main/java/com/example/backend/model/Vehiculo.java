@@ -1,6 +1,6 @@
 package com.example.backend.model;
-import com.example.backend.model.enums.EstadoVehiculo;
-import com.example.backend.model.enums.TipoVehiculo;
+import com.example.backend.model.enums.estadoVehiculo;
+import com.example.backend.model.enums.tipoVehiculo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
