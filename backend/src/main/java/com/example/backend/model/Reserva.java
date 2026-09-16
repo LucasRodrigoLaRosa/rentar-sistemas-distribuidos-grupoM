@@ -60,7 +60,7 @@ public Reserva(LocalDateTime fechaInicio, LocalDateTime fechaFin, Cliente client
     this.vehiculo = vehiculo;
     this.precioDiario = precioDiario;
     this.importeTotal = importeTotal;
-    this.estadoReserva= estadoReserva.CONFIRMADA;
+    this.estado= estadoReserva.CONFIRMADA;
     
 
 }

@@ -15,7 +15,7 @@ public interface VehiculoRepository extends JpaRepository<Vehiculo,Long>{
    
     
  //Estas conbinaciones estan en : 
- //Spring Data JPA Reference Documentation $\rightarrow$ "Defining Query Methods" $\rightarrow$ "Supported Query Keywords"
+ //Spring Data JPA Reference Documentation --> "Defining Query Methods"---> "Supported Query Keywords"
 Optional<Vehiculo> findByIdAndActivoTrue(Long id);
 
     boolean existsByPatente(String patente);
