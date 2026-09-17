@@ -178,6 +178,12 @@ public void setPrecioDiario(BigDecimal precioDiario) {
 
 
 
+public Long getIdVehiculo() {
+    return idVehiculo;
+}
+
+
+
 
 
 
