@@ -1,0 +1,93 @@
+# Tipos Enumerados del Enunciado
+enum TipoVehiculo {
+  SEDAN
+  SUV
+  PICKUP
+  COUPE
+  HATCHBACK
+}
+
+enum EstadoVehiculo {
+  DISPONIBLE
+  RESERVADO
+  EN_ALQUILER
+}
+
+enum EstadoReserva {
+  CONFIRMADA
+  CANCELADA
+  FINALIZADA
+}
+
+# Tipos de Salida (DTOs de respuesta para el Frontend)
+type VehiculoDisponibleGraphQL {
+  id: ID!
+  patente: String!
+  marca: String!
+  modelo: String!
+  anio: Int!
+  color: String
+  tipoVehiculo: TipoVehiculo!
+  precioDiario: Float!
+}
+
+type ReservaGraphQL {
+  id: ID!
+  clienteNombreCompleto: String!
+  vehiculoDescripcion: String!
+  patente: String!
+  fechaInicio: String!
+  fechaFin: String!
+  precioDiario: Float!
+  importeTotal: Float!
+  estado: EstadoReserva!
+}
+
+type HistorialAlquilerGraphQL {
+  id: ID!
+  vehiculoDescripcion: String!
+  patente: String!
+  fechaInicio: String!
+  fechaFin: String!
+  cantidadDias: Int!
+  importeTotal: Float!
+  estado: EstadoReserva!
+}
+
+# Inputs para Filtros Opcionales
+input FiltroVehiculoInput {
+  tipoVehiculo: TipoVehiculo
+  marca: String
+  modelo: String
+  precioMin: Float
+  precioMax: Float
+}
+
+input FiltroReservaInput {
+  clienteId: ID
+  vehiculoId: ID
+  tipoVehiculo: TipoVehiculo
+  estado: EstadoReserva
+  fechaDesde: String
+  fechaHasta: String
+}
+
+# Operaciones de Consulta exigidas para el Hito 1
+type Query {
+  # Req. 2: Consulta de disponibilidad (Fechas obligatorias, filtros de vehículo opcionales)
+  consultarDisponibilidad(
+    fechaInicio: String!
+    fechaFin: String!
+    filtro: FiltroVehiculoInput
+  ): [VehiculoDisponibleGraphQL!]!
+
+  # Req. 5: Consulta de reservas (Filtros opcionales)
+  consultarReservas(
+    filtro: FiltroReservaInput
+  ): [ReservaGraphQL!]!
+
+  # Req. 7: Historial de alquileres del cliente
+  consultarHistorialCliente(
+    clienteId: ID!
+  ): [HistorialAlquilerGraphQL!]!
+}

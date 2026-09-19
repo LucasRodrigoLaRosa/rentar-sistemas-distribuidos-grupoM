@@ -30,7 +30,7 @@ public class VehiculoService {
         }
 
         Vehiculo vehiculo = new Vehiculo();
-        vehiculo.setPatente(dto.getPatente().toUpperCase().trim());[cite: 1]
+        vehiculo.setPatente(dto.getPatente().toUpperCase().trim());//[cite: 1]
         vehiculo.setMarca(dto.getMarca());
         vehiculo.setModelo(dto.getModelo());
         vehiculo.setAnio(dto.getAnio());

@@ -111,7 +111,7 @@ public void setEmail(String email) {
     this.email = email;
 }
 
-public void setTeléfono(Long teléfono) {
+public void setTelefono(Long teléfono) {
     this.teléfono = teléfono;
 }
 
