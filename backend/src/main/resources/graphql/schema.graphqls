@@ -1,5 +1,5 @@
 # Tipos Enumerados del Enunciado
-enum TipoVehiculo {
+enum tipoVehiculo {
   SEDAN
   SUV
   PICKUP
@@ -7,13 +7,13 @@ enum TipoVehiculo {
   HATCHBACK
 }
 
-enum EstadoVehiculo {
+enum estadoVehiculo {
   DISPONIBLE
   RESERVADO
   EN_ALQUILER
 }
 
-enum EstadoReserva {
+enum estadoReserva {
   CONFIRMADA
   CANCELADA
   FINALIZADA
@@ -27,7 +27,7 @@ type VehiculoDisponibleGraphQL {
   modelo: String!
   anio: Int!
   color: String
-  tipoVehiculo: TipoVehiculo!
+  tipoVehiculo: tipoVehiculo!
   precioDiario: Float!
 }
 
@@ -40,7 +40,7 @@ type ReservaGraphQL {
   fechaFin: String!
   precioDiario: Float!
   importeTotal: Float!
-  estado: EstadoReserva!
+  estado: estadoReserva!
 }
 
 type HistorialAlquilerGraphQL {
@@ -51,12 +51,12 @@ type HistorialAlquilerGraphQL {
   fechaFin: String!
   cantidadDias: Int!
   importeTotal: Float!
-  estado: EstadoReserva!
+  estado: estadoReserva!
 }
 
 # Inputs para Filtros Opcionales
 input FiltroVehiculoInput {
-  tipoVehiculo: TipoVehiculo
+  tipoVehiculo: tipoVehiculo
   marca: String
   modelo: String
   precioMin: Float
@@ -66,8 +66,8 @@ input FiltroVehiculoInput {
 input FiltroReservaInput {
   clienteId: ID
   vehiculoId: ID
-  tipoVehiculo: TipoVehiculo
-  estado: EstadoReserva
+  tipoVehiculo: tipoVehiculo
+  estado: estadoReserva
   fechaDesde: String
   fechaHasta: String
 }

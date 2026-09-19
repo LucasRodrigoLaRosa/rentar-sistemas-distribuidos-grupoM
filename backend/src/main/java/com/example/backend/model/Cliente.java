@@ -32,20 +32,20 @@ public class Cliente {
     private Long documento; //(obligatorio)
 
     @NotBlank(message="El nombre es obligatorio")
-    @Column(nullable = false , lenght = 20)
+    @Column(nullable = false , length = 20)
     private String nombre; //(obligatorio)
 
     @NotBlank(message="El apellifo es obligatorio")
-    @Column(nullable = false, lengt = 20)
+    @Column(nullable = false, length = 20)
     private String apellido; // (obligatorio)
 
     @NotBlank(message="El mail es obligatorio")
     @Email(message="Formato inválido")
-    @Column(nullable = false, unique = true , lengt =120)
+    @Column(nullable = false, unique = true , length =120)
     private String email; //(único y obligatorio)
 
-    @Column (lengt = 30)
-    private Long teléfono;
+    @Column (length = 30)
+    private String telefono;
 
     @Past(message = "La fecha de nacimiento debe ser en el pasado")
     @Column(nullable = false)
@@ -57,14 +57,22 @@ public class Cliente {
 public Cliente() {
 }
 
-public Cliente(Long documento, String nombre, String apellido, String email, Long teléfono, LocalDate fechaNac) {
+public Cliente(Long documento, String nombre, String apellido, String email, String telefono, LocalDate fechaNac) {
     this.documento = documento;
     this.nombre = nombre;
     this.apellido = apellido;
     this.email = email;
-    this.teléfono = teléfono;
+    this.telefono = telefono;
     this.fechaNac = fechaNac;
     this.activo=true;
+}
+
+public Long getIdCliente() {
+    return idCliente;
+}
+
+public void setIdCliente(Long idCliente) {
+    this.idCliente = idCliente;
 }
 
 public Long getDocumento() {
@@ -83,8 +91,8 @@ public String getEmail() {
     return email;
 }
 
-public Long getTeléfono() {
-    return teléfono;
+public String getTelefono() {
+    return telefono;
 }
 
 public LocalDate getFechaNac() {
@@ -111,8 +119,8 @@ public void setEmail(String email) {
     this.email = email;
 }
 
-public void setTelefono(Long teléfono) {
-    this.teléfono = teléfono;
+public void setTelefono(String telefono) {
+    this.telefono = telefono;
 }
 
 public void setFechaNac(LocalDate fechaNac) {

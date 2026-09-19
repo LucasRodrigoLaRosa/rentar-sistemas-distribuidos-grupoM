@@ -54,7 +54,7 @@ public class ClienteService {
         nuevoCliente.setNombre(dto.getNombre().trim());
         nuevoCliente.setApellido(dto.getApellido().trim());
         nuevoCliente.setEmail(emailNormalizado);
-        nuevoCliente.setTelefono(dto.getTelefono() != null ? dto.getTelefono().trim() : null);
+        nuevoCliente.setTelefono(dto.getTelefono().toLowerCase().trim());
         nuevoCliente.setFechaNac(dto.getFechaNacimiento());
         nuevoCliente.setActivo(true); // Todo alta inicia en estado activo
 
@@ -95,7 +95,7 @@ public class ClienteService {
             cliente.setApellido(dto.getApellido().trim());
         }
         
-        cliente.setTeléfono(dto.getTelefono() != null ? dto.getTelefono().trim() : null);
+        cliente.setTelefono(dto.getTelefono().toLowerCase().trim());
         cliente.setFechaNac(dto.getFechaNacimiento());
 
         Cliente actualizado = clienteRepository.save(cliente);

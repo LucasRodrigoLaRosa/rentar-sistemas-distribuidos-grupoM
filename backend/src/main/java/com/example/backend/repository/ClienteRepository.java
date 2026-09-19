@@ -11,8 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-
-    Optional<Cliente> findByIdAndActivoTrue(Long id);
+@Query("SELECT c FROM Cliente c WHERE c.idCliente = :id AND c.activo = true")
+    Optional<Cliente> findByIdAndActivoTrue(@Param("id") Long id);
 
     boolean existsByDocumento(Long documento);
 

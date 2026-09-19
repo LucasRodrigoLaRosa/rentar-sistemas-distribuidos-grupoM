@@ -35,7 +35,7 @@ private String color;
 @NotNull(message = "El tipo de vehículo es obligatorio")
 @Enumerated(EnumType.STRING)
 @Column(nullable = false, length = 20)
-private String tipo;
+private tipoVehiculo tipo;
 
 @NotNull
 @Enumerated(EnumType.STRING)
@@ -43,7 +43,7 @@ private String tipo;
 private estadoVehiculo estado;
 
 @Column(nullable = false)
-private Boolean Activo=true;
+private Boolean activo=true;
 
 @NotNull(message = "El precio diario es obligatorio")
 @DecimalMin(value = "0.01", message = "El precio debe ser mayor a 0")
@@ -56,7 +56,7 @@ public Vehiculo(){}
 
 
 
-public Vehiculo(String patente, String marca, String modelo, int anio, String color, String tipo,BigDecimal precioDiario) {
+public Vehiculo(String patente, String marca, String modelo, int anio, String color, tipoVehiculo tipo, BigDecimal precioDiario) {
     this.patente = patente;
     this.marca = marca;
     this.modelo = modelo;
@@ -64,7 +64,7 @@ public Vehiculo(String patente, String marca, String modelo, int anio, String co
     this.color = color;
     this.tipo = tipo;
     this.estado = estadoVehiculo.DISPONIBLE;
-    Activo = true;
+    this.activo = true;
     this.precioDiario = precioDiario;
 }
 
@@ -100,7 +100,7 @@ public String getColor() {
 
 
 
-public String getTipo() {
+public tipoVehiculo getTipo() {
     return tipo;
 }
 
@@ -113,7 +113,7 @@ public estadoVehiculo getEstado() {
 
 
 public Boolean getActivo() {
-    return Activo;
+    return activo;
 }
 
 
@@ -154,7 +154,7 @@ public void setColor(String color) {
 
 
 
-public void setTipo(String tipo) {
+public void setTipo(tipoVehiculo tipo) {
     this.tipo = tipo;
 }
 
@@ -167,7 +167,7 @@ public void setEstado(estadoVehiculo estado) {
 
 
 public void setActivo(Boolean activo) {
-    Activo = activo;
+    this.activo = activo;
 }
 
 

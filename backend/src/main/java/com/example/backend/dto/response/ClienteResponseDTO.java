@@ -9,7 +9,7 @@ public class ClienteResponseDTO {
     private String nombre;
     private String apellido;
     private String email;
-    private Long telefono;
+    private String telefono;
     private LocalDate fechaNacimiento;
     private Boolean activo;
 
@@ -17,12 +17,12 @@ public class ClienteResponseDTO {
 
     // Constructor mapper: extrae los datos de la entidad persistida
     public ClienteResponseDTO(Cliente c) {
-        this.id = c.getId();
+        this.id = c.getIdCliente();
         this.documento = c.getDocumento();
         this.nombre = c.getNombre();
         this.apellido = c.getApellido();
         this.email = c.getEmail();
-        this.telefono = c.getTeléfono();
+        this.telefono = c.getTelefono();
         this.fechaNacimiento = c.getFechaNac();
         this.activo = c.getActivo();
     }
@@ -32,7 +32,7 @@ public class ClienteResponseDTO {
     public String getNombre() { return nombre; }
     public String getApellido() { return apellido; }
     public String getEmail() { return email; }
-    public Long getTelefono() { return telefono; }
+    public String getTelefono() { return telefono; }
     public LocalDate getFechaNacimiento() { return fechaNacimiento; }
     public Boolean getActivo() { return activo; }
 }

@@ -1,6 +1,9 @@
 package com.example.backend.repository;
 import com.example.backend.model.Vehiculo;
 import com.example.backend.model.enums.tipoVehiculo;
+import com.example.backend.model.enums.estadoVehiculo;
+import io.swagger.v3.oas.annotations.Parameter;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +19,8 @@ public interface VehiculoRepository extends JpaRepository<Vehiculo,Long>{
     
  //Estas conbinaciones estan en : 
  //Spring Data JPA Reference Documentation --> "Defining Query Methods"---> "Supported Query Keywords"
-Optional<Vehiculo> findByIdAndActivoTrue(Long id);
+ @Query("SELECT v FROM Vehiculo v WHERE v.idVehiculo = :id AND v.activo = true")
+Optional<Vehiculo> findByIdAndActivoTrue(@Param("id") Long id);
 
     boolean existsByPatente(String patente);
     List<Vehiculo> findByActivoTrue();
@@ -30,9 +34,9 @@ Optional<Vehiculo> findByIdAndActivoTrue(Long id);
           AND (:precioMax IS NULL OR v.precioDiario <= :precioMax)
           AND v.id NOT IN (
               SELECT r.vehiculo.id FROM Reserva r
-              WHERE r.estado = com.example.backend.model.enums.EstadoReserva.CONFIRMADA
-                AND r.fechaHoraInicio < :fin
-                AND r.fechaHoraFin > :inicio
+              WHERE r.estado = com.example.backend.model.enums.estadoReserva.CONFIRMADA
+                AND r.fechaInicio < :fin
+                AND r.fechaFin > :inicio
           )
     """)
     List<Vehiculo> buscarDisponibles(

@@ -65,6 +65,14 @@ public Reserva(LocalDateTime fechaInicio, LocalDateTime fechaFin, Cliente client
 
 }
 
+public Long getIdAlquiler() {
+    return idAlquiler;
+}
+
+public void setIdAlquiler(Long idAlquiler) {
+    this.idAlquiler = idAlquiler;
+}
+
 public LocalDateTime getFechaInicio() {
     return fechaInicio;
 }

@@ -7,7 +7,7 @@ public class ClienteModificacionDTO {
     private String nombre;
     private String apellido;
     private String email;
-    private Long telefono;
+    private String telefono;
     private LocalDate fechaNacimiento;
 
     public ClienteModificacionDTO() {}
@@ -31,8 +31,8 @@ public class ClienteModificacionDTO {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public Long getTelefono() { return telefono; }
-    public void setTelefono(Long telefono) { this.telefono = telefono; }
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 
     public LocalDate getFechaNacimiento() { return fechaNacimiento; }
     public void setFechaNacimiento(LocalDate fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }

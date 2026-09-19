@@ -1,5 +1,8 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.graphql.FiltroReservaInput;
+import com.example.backend.dto.graphql.HistorialAlquilerGraphQL;
+import com.example.backend.dto.graphql.ReservaGraphQL;
 import com.example.backend.dto.request.ReservaCreacionDTO;
 import com.example.backend.dto.response.ReservaResponseDTO;
 import com.example.backend.exception.BusinessException;
@@ -18,7 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservaService {
@@ -66,7 +71,7 @@ public class ReservaService {
         
         // 4. Verificación de solapamiento temporal en la base de datos (Req. 4)
         boolean solapado = reservaRepository.existeSolapamiento(
-                vehiculo.getId(),
+                vehiculo.getIdVehiculo(),
                 dto.getFechaInicio(),
                 dto.getFechaFin()
         );
@@ -135,4 +140,81 @@ public class ReservaService {
                 .map(ReservaResponseDTO::new)
                 .toList();
     }
+
+    //----------------------GRAPQHL---------------------------------------------
+
+    @Transactional(readOnly = true)
+public List<HistorialAlquilerGraphQL> obtenerHistorialCliente(Long clienteId) {
+    if (!clienteRepository.existsById(clienteId)) {
+        throw new RecursoNoEncontradoException("Cliente no encontrado con ID: " + clienteId);
+    }
+
+    // Usamos el método exacto que ya tenés en tu interfaz:
+    List<Reserva> reservas = reservaRepository.findByClienteIdAndEstadoIn(
+            clienteId, 
+            List.of(estadoReserva.FINALIZADA, estadoReserva.CANCELADA)
+    );
+
+    return reservas.stream()
+            .map(r -> {
+                long dias = ChronoUnit.DAYS.between(r.getFechaInicio(), r.getFechaFin());
+                int cantidadDias = (int) Math.max(1, dias);
+
+                return new HistorialAlquilerGraphQL(
+                        r.getIdAlquiler(),
+                        r.getVehiculo().getMarca() + " " + r.getVehiculo().getModelo(),
+                        r.getVehiculo().getPatente(),
+                        r.getFechaInicio().toString(),
+                        r.getFechaFin().toString(),
+                        cantidadDias,
+                        r.getImporteTotal().doubleValue(),
+                        r.getEstado()
+                );
+            })
+            .collect(Collectors.toList());
+}
+
+@Transactional(readOnly = true)
+public List<ReservaGraphQL> consultarReservasGraphQL(FiltroReservaInput filtro) {
+    List<Reserva> reservas = reservaRepository.findAll();
+
+    return reservas.stream()
+            .filter(r -> {
+                if (filtro == null) return true;
+                if (filtro.getClienteId() != null && !r.getCliente().getIdCliente().equals(filtro.getClienteId())) {
+                    return false;
+                }
+                if (filtro.getVehiculoId() != null && !r.getVehiculo().getIdVehiculo().equals(filtro.getVehiculoId())) {
+                    return false;
+                }
+                if (filtro.getTipoVehiculo() != null && r.getVehiculo().getTipo() != filtro.getTipoVehiculo()) {
+                    return false;
+                }
+                if (filtro.getEstado() != null && r.getEstado() != filtro.getEstado()) {
+                    return false;
+                }
+                if (filtro.getFechaDesde() != null && !filtro.getFechaDesde().isBlank()) {
+                    LocalDateTime desde = LocalDateTime.parse(filtro.getFechaDesde());
+                    if (r.getFechaInicio().isBefore(desde)) return false;
+                }
+                if (filtro.getFechaHasta() != null && !filtro.getFechaHasta().isBlank()) {
+                    LocalDateTime hasta = LocalDateTime.parse(filtro.getFechaHasta());
+                    if (r.getFechaFin().isAfter(hasta)) return false;
+                }
+                return true;
+            })
+            .map(r -> new ReservaGraphQL(
+                    r.getIdAlquiler(),
+                    r.getCliente().getNombre() + " " + r.getCliente().getApellido(),
+                    r.getVehiculo().getMarca() + " " + r.getVehiculo().getModelo(),
+                    r.getVehiculo().getPatente(),
+                    r.getFechaInicio().toString(),
+                    r.getFechaFin().toString(),
+                    r.getVehiculo().getPrecioDiario().doubleValue(),
+                    r.getImporteTotal().doubleValue(),
+                    r.getEstado()
+            ))
+            .collect(Collectors.toList());
+}
+
 }

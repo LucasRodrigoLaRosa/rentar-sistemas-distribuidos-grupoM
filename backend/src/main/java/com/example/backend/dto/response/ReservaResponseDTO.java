@@ -21,10 +21,10 @@ public class ReservaResponseDTO {
     public ReservaResponseDTO() {}
 
     public ReservaResponseDTO(Reserva r) {
-        this.id = r.getId();
-        this.clienteId = r.getCliente().getId();
+        this.id = r.getIdAlquiler();
+        this.clienteId = r.getCliente().getIdCliente();
         this.nombreCliente = r.getCliente().getNombre() + " " + r.getCliente().getApellido();
-        this.vehiculoId = r.getVehiculo().getId();
+        this.vehiculoId = r.getVehiculo().getIdVehiculo();
         this.patenteVehiculo = r.getVehiculo().getPatente();
         this.modeloVehiculo = r.getVehiculo().getMarca() + " " + r.getVehiculo().getModelo();
         this.fechaInicio = r.getFechaInicio();

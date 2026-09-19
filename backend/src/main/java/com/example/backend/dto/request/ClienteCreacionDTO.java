@@ -7,14 +7,14 @@ public class ClienteCreacionDTO {
     private String nombre;
     private String apellido;
     private String email;
-    private Long telefono;
+    private String telefono;
     private LocalDate fechaNacimiento;
 
     // Obligatorio para la deserialización de Jackson (JSON -> Objeto)
     public ClienteCreacionDTO() {}
 
     public ClienteCreacionDTO(Long documento, String nombre, String apellido, 
-                              String email, Long telefono, LocalDate fechaNacimiento) {
+                              String email, String telefono, LocalDate fechaNacimiento) {
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -35,7 +35,7 @@ public class ClienteCreacionDTO {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public Long getTelefono() { return telefono; }
+    public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
 
     public LocalDate getFechaNacimiento() { return fechaNacimiento; }
